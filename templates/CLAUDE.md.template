@@ -1,0 +1,56 @@
+# <PROJECT NAME>
+
+<One sentence: what this is, who uses its output, and what it must never get wrong.>
+
+## Stack
+
+- <language, framework, runtime, hosting>
+- Data: <databases, ERP instance, third-party APIs>
+
+## Data handling — read before writing any query
+
+- **No customer data in the repo.** Not in fixtures, seed data, test files, notebooks, or committed exports. Use synthetic data for anything checked in.
+- **Credentials are server-side only.** Never put a secret in anything a client bundle can reach. Connection strings live in the secret store, not in source or `appsettings.*`.
+- **Aggregate output does not need row-level detail.** If a query selects identifying columns and the result is a total or a chart, drop the identifier.
+- **No customer data in logs, error payloads, or URL query strings.** All three persist and are broadly readable.
+- **No customer data to any third-party or model API without a human OK.**
+- **Production data pulls need a human OK first.** Not a formality — ask.
+
+## Financial correctness — read before computing any number
+
+Every figure this project produces states its **period basis** (document date or posting period), **as-of date**, **currency treatment**, and **exclusions**. If it doesn't, it isn't defined yet.
+
+- **<metric name>** — <definition>
+  - Population: <which documents, which statuses, which entities; what is explicitly excluded>
+  - Period basis: <document date | posting period; fiscal calendar; boundary inclusivity>
+  - Sign convention: <how debits/credits/credit memos are stored, and where that was verified>
+  - Currency: <transaction | base; which rate and at what date>
+  - Grain: <once per document / line / application record>
+
+Anything that computes money is reconciled against the ERP's own report or inquiry screen before it is presented. An unreconciled number is not a verified number.
+
+## Never without explicit approval
+
+- Posting, releasing, voiding, or reversing any document.
+- Writing to a shared or production database.
+- Anything that runs against a closed period.
+
+## Before opening a PR
+
+Run in parallel: `security-compliance-reviewer`, `financial-data-auditor` (if any number is computed), `code-quality-pragmatist`. Then `/code-review`.
+
+## Commands
+
+```bash
+<build>
+<typecheck / lint>
+<test>
+```
+
+## Conventions
+
+- <keep this short; only write down what has been violated at least once>
+
+## Gotchas
+
+- <the things that cost a cycle. Every entry earns its place by having burned someone.>

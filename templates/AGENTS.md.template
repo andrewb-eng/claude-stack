@@ -1,0 +1,19 @@
+# Agent instructions for <PROJECT NAME>
+
+This file is read by agent tools that look for `AGENTS.md` (Codex, Cursor, and others).
+It intentionally mirrors `CLAUDE.md` — keep the two in sync, or make one a pointer to
+the other, but never let them disagree. Contradictory instruction files are worse than
+one file, because whichever tool reads the stale one behaves confidently wrong.
+
+See `CLAUDE.md` in this directory for the full project instructions.
+
+## The short version
+
+- <one sentence: what this project is>
+- Build: `<command>` · Test: `<command>` · Lint: `<command>`
+- Never post, release, void, or reverse a document without explicit human approval.
+- Never write to a shared or production database.
+- No customer data in the repo, in logs, or sent to any third-party API.
+- Any computed money figure is reconciled against the system of record before it is presented.
+- Smallest thing that works. No abstraction with one implementation.
+- Fail loudly. Never set a success flag on a path that did not succeed.
